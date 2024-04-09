@@ -188,9 +188,13 @@ func (r *Requester) ExtractInformation() {
 	Image = image.String()
 
 	EmailsOrPhones := []string{}
-	doc.Find("div[class='bk bl']").Each(func(i int, s *goquery.Selection) {
-		EmailsOrPhones = append(EmailsOrPhones, s.Text())
-	})
+doc.Find("div[class='bk bl']").Each(func(i int, s *goquery.Selection) {
+    email := s.Text()
+    EmailsOrPhones = append(EmailsOrPhones, email)
+    // Print the email here to check if it's extracted correctly
+    pterm.Println(email)
+})
+
 
 	if Name != "" {
 		r.User = NewUser(Name, Image, EmailsOrPhones)
@@ -243,3 +247,4 @@ func (r *Requester) DownloadImage() error {
 
 	return nil
 }
+
